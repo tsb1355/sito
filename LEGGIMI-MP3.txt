@@ -1,0 +1,2 @@
+Nella cartella principale va aggiunto anche lobby.mp3 (musica della modalità Esplora).
+Questo file si può cancellare.

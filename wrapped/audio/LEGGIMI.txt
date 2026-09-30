@@ -1,0 +1,2 @@
+Metti qui i 25 file .mp3 del Wrapped (dalla cartella wrapped/audio del sito originale),
+solo se non li hai ancora caricati su R2 dal site tool.

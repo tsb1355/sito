@@ -1,0 +1,356 @@
+/* ============================================================
+   RADIO CARDUCCI — COLORS + TYPE
+   La palette è già giusta. Non toccare.
+   ============================================================ */
+
+/* -- Web fonts -------------------------------------------------
+   Syne via Google Fonts (CDN).
+   BL Melody (body) served from ./fonts/.
+   Moliga Demo Regular served from ./fonts/.
+   Montserrat shipped as fallback / utility sans.
+-------------------------------------------------------------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+
+@font-face {
+  font-family: "Moliga";
+  src: url("./fonts/moliga-demo-regular.otf") format("opentype"),
+       url("./fonts/moliga-demo.regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Melody";
+  src: url("./fonts/blmelody-regular.woff2") format("woff2"),
+       url("./fonts/blmelody-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Melody";
+  src: url("./fonts/blmelody-medium.woff2") format("woff2"),
+       url("./fonts/blmelody-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BL Melody";
+  src: url("./fonts/blmelody-bold.woff2") format("woff2"),
+       url("./fonts/blmelody-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------------------------------------------------------
+     CORE PALETTE — Nuova tavolozza ufficiale
+     --------------------------------------------------------- */
+  --rc-ink:        #1e1e1e;
+  --rc-ink-deep:   #1a1a1a;
+  --rc-blue:       #2277ff;
+  --rc-gold:       #fccc02;
+  --rc-orange:     #fc8802;
+  --rc-purple:     #8402fc;
+  
+  --rc-red:        #2277ff;  /* Accent Primario: Electric Blue */
+  --rc-red-deep:   #8402fc;  /* Accent Secondario: Neon Purple */
+  --rc-bone:       #f4f4f5;
+
+  /* Accent utilities */
+  --color-blue:    #2277ff;
+  --color-gold:    #fccc02;
+  --color-orange:  #fc8802;
+  --color-purple:  #8402fc;
+
+  /* ---------------------------------------------------------
+     SEMANTIC SURFACES
+     --------------------------------------------------------- */
+  --bg:            #1e1e1e;
+  --bg-elev:       #262626;   /* card elevazione */
+  --bg-inset:      #1a1a1a;   /* sezioni incassate */
+  --bg-inverse:    var(--rc-bone);
+
+  /* ---------------------------------------------------------
+     SEMANTIC FOREGROUNDS
+     --------------------------------------------------------- */
+  --fg1:           var(--rc-bone);
+  --fg2:           #a1a1aa;
+  --fg3:           #71717a;
+  --fg-inverse:    var(--rc-ink);
+  --fg-accent:     var(--rc-blue);
+  --fg-accent-hot: var(--rc-gold);
+
+  /* ---------------------------------------------------------
+     LINES / BORDERS
+     --------------------------------------------------------- */
+  --line:          rgba(255, 255, 255, 0.1);
+  --line-strong:   rgba(255, 255, 255, 0.18);
+  --line-inverse:  #e4e4e7;
+
+  /* ---------------------------------------------------------
+     TYPE STACK — Modern & Ultra-Legible
+     --------------------------------------------------------- */
+  --font-display:  "Outfit", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body:     "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-mega:     "Moliga", "Outfit", sans-serif;
+  --font-mono:     "Space Grotesk", ui-monospace, monospace;
+
+  /* ---------------------------------------------------------
+     TYPE SCALE — grandi salti, niente 14→16.
+     Minimal dark = gerarchia forte.
+     --------------------------------------------------------- */
+  --fs-micro:      11px;    /* badge, on-air label, timestamp */
+  --fs-caption:    13px;    /* meta, footer, numerini */
+  --fs-body:       16px;
+  --fs-body-lg:    19px;
+  --fs-lead:       24px;
+  --fs-h3:         32px;
+  --fs-h2:         48px;
+  --fs-h1:         72px;
+  --fs-display:    120px;   /* Moliga */
+  --fs-hero:       180px;   /* quando vuoi gridare */
+
+  /* Line heights: stretti in display, comodi in body */
+  --lh-tight:      0.92;
+  --lh-snug:       1.05;
+  --lh-body:       1.5;
+  --lh-loose:      1.65;
+
+  /* Letter spacing: Moliga (font-mega) necessita di un tracking più ampio,
+     tutto quello che è micro/caption va in uppercase con tracking positivo */
+  --ls-display:    0.03em;
+  --ls-tight:      0;
+  --ls-normal:     0;
+  --ls-caps:       0.08em;
+  --ls-caps-wide:  0.14em;
+
+  /* ---------------------------------------------------------
+     SPACING — scala 4px, niente invenzioni
+     --------------------------------------------------------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  24px;
+  --s-6:  32px;
+  --s-7:  48px;
+  --s-8:  64px;
+  --s-9:  96px;
+  --s-10: 128px;
+
+  /* ---------------------------------------------------------
+     RADII — spigoli vivi quasi ovunque.
+     Il brand è angoloso. Non arrotondare tutto.
+     --------------------------------------------------------- */
+  --r-0:   0px;      /* default */
+  --r-1:   2px;      /* micro — pulsanti, pill */
+  --r-2:   4px;      /* card interne */
+  --r-pill: 999px;   /* capsule — usare solo per tag/live */
+
+  /* ---------------------------------------------------------
+     MOTION — secca, come da README: "niente bounce, niente spring".
+     L'unica eccezione ammessa è il blink di .rc-live, che usa la
+     sua curva dedicata invece di questi token condivisi.
+     --------------------------------------------------------- */
+  --ease-out:   cubic-bezier(0.9, 0, 0.1, 1); /* secca, come da brand */
+  --ease-in:    cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  --ease-snap:  cubic-bezier(0.9, 0, 0.1, 1); /* secca, come da brand */
+  --ease-fluid: cubic-bezier(0.22, 1, 0.36, 1); /* molto morbido */
+  --ease-brutal: cubic-bezier(0.9, 0, 0.1, 1); /* transizione secca e ad alto contrasto */
+  --dur-fast:   150ms;
+  --dur-base:   300ms;
+  --dur-slow:   500ms;
+  --dur-xtra:   800ms;
+
+  /* ---------------------------------------------------------
+     Z / ELEV
+     --------------------------------------------------------- */
+  --z-base: 0;
+  --z-nav:  10;
+  --z-overlay: 50;
+  --z-modal: 100;
+
+  /* Ombre: quasi mai. Se serve, solo per on-air. */
+  --shadow-on-air: 0 0 0 3px rgba(219, 56, 73, 0.25), 0 0 32px rgba(219, 56, 73, 0.45);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  background: var(--bg);
+}
+
+body {
+  background: transparent;
+  color: var(--fg1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection, *::selection {
+  background-color: var(--rc-red) !important;
+  color: var(--rc-bone) !important;
+}
+
+::-moz-selection, *::-moz-selection {
+  background-color: var(--rc-red) !important;
+  color: var(--rc-bone) !important;
+}
+
+/* ============================================================
+   TYPOGRAPHIC PRIMITIVES
+   Usa queste classi, non inventarne altre.
+   ============================================================ */
+
+/* MEGA — Moliga. Titoloni. Un uso per pagina. Max. */
+.rc-mega {
+  font-family: var(--font-mega);
+  font-size: clamp(72px, 12vw, var(--fs-hero));
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--fg1);
+  font-weight: 400; /* Moliga è display, non serve bold */
+}
+
+/* DISPLAY — Syne bold. Headline standard. */
+.rc-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 800;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+}
+
+h1, .rc-h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-display);
+  color: var(--fg1);
+}
+
+h2, .rc-h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--fg1);
+}
+
+h3, .rc-h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--fg1);
+}
+
+.rc-lead {
+  font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--fg1);
+}
+
+p, .rc-p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  color: var(--fg1);
+}
+
+.rc-meta, .rc-caption {
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--fg2);
+}
+
+/* CAPS — la firma tipografica di RC.
+   Piccolo. Tutto maiuscolo. Tracking largo.
+   Tipo label Adult Swim. */
+.rc-caps {
+  font-family: var(--font-display);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps-wide);
+  color: var(--fg1);
+}
+
+.rc-caps-lg {
+  font-family: var(--font-display);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+}
+
+/* LIVE tag — l'unica cosa che pulsa. */
+.rc-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps-wide);
+  color: var(--rc-bone);
+  background: var(--rc-red);
+  padding: 2px 7px 1px;
+  border-radius: var(--r-1);
+  line-height: 1.4;
+}
+.rc-live::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--rc-bone);
+  /* Unica eccezione brand al "niente bounce": curva propria, non il token --ease-snap */
+  animation: rc-blink 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+@keyframes rc-blink {
+  0%, 45%  { opacity: 1; }
+  50%, 95% { opacity: 0.15; }
+  100%     { opacity: 1; }
+}
+
+/* Mono — usare con cazzimma, solo per timestamp/freq */
+code, .rc-mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  color: var(--fg2);
+  letter-spacing: 0;
+}
+
+/* Link di default — il rosso è SEGNALE, non decoro */
+a.rc-link {
+  color: var(--fg1);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-strong);
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+a.rc-link:hover {
+  color: var(--rc-red);
+  border-bottom-color: var(--rc-red);
+}

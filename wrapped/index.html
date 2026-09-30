@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Wrapped Sandbox</title>
+  <!-- Preload font critici: evita FOIT -->
+  <link rel="preload" as="font" type="font/woff2"
+        href="fonts/blmelody-regular.woff2" crossorigin="anonymous">
+  <link rel="preload" as="font" type="font/woff2"
+        href="fonts/blmelody-bold.woff2" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="style.css?v=2">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- 3D Canvas Background -->
+  <div id="canvas-container"></div>
+  
+  <!-- Snow Canvas -->
+  <canvas id="snow-canvas"></canvas>
+  <div id="bg-gradient"></div>
+
+  <!-- Kinetic Typography Background -->
+  <div id="kinetic-bg"></div>
+
+  <!-- Lyrics Container -->
+  <div id="lyrics-wrapper">
+    <div id="lyrics-container" class="rc-mega"></div>
+  </div>
+
+  <!-- Landing / Intro Overlay -->
+  <div id="intro-overlay">
+    <!-- Mesh Background -->
+    <div class="intro-bg-mesh">
+      <div class="mesh-blob mesh-blob-1"></div>
+      <div class="mesh-blob mesh-blob-2"></div>
+      <div class="mesh-blob mesh-blob-3"></div>
+    </div>
+
+    <!-- Wrapped circular text effect -->
+    <div class="intro-wrapped-circle">
+      <svg viewBox="0 0 1000 1000" class="wrapped-path-svg">
+        <path id="circle-path" d="M 500, 500 m -350, 0 a 350,350 0 1,1 700,0 a 350,350 0 1,1 -700,0" fill="transparent" />
+        <text class="wrapped-svg-text">
+          <textPath href="#circle-path" startOffset="0%">
+            CARDUCCI WRAPPED &bull; CARDUCCI WRAPPED &bull; CARDUCCI WRAPPED &bull; 
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="intro-content">
+      <h1 class="intro-title">
+        <span class="intro-line">Apri il</span>
+        <span class="intro-line">wrapped di</span>
+        <span class="intro-line intro-name-line">
+          <span class="name-roulette-mask">
+            <span id="name-roulette" class="name-roulette"></span>
+          </span>
+        </span>
+      </h1>
+      <p class="rc-lead intro-subtitle">Radio Carducci non è niente senza musica.<br>Ecco 25 gemme che non sapevi di amare.</p>
+      <button id="start-btn" class="rc-caps">Apri l'esperienza</button>
+    </div>
+    <!-- Cover explosion layer -->
+    <div id="cover-explosion" class="hidden"></div>
+  </div>
+
+  <!-- Track Transition Overlay -->
+  <div id="track-transition" class="hidden">
+    <div class="transition-spinner"></div>
+  </div>
+
+  <!-- Main Wrapped UI -->
+  <div id="wrapped-ui" class="hidden">
+    
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="rc-caps track-index">Brano <span id="current-track-num">1</span> di <span id="total-track-num">25</span></div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Center Content (Cover & Meta) -->
+    <div class="center-content">
+      <div class="cover-wrapper" id="cover-wrapper">
+        <img id="cover-img" src="" alt="Copertina" style="display: none;">
+        <div class="cover-placeholder" id="cover-placeholder"></div>
+      </div>
+      
+      <div class="track-meta">
+        <h2 id="track-title" class="rc-display">Loading...</h2>
+        <h3 id="track-artist" class="rc-h3" style="opacity: 0.8;">Loading...</h3>
+        <span id="track-subtitle" class="track-subtitle"></span>
+      </div>
+    </div>
+
+    <!-- Bottom Actions -->
+    <div class="action-bar">
+      <button id="btn-skip" class="rc-caps action-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+        Salta
+      </button>
+      
+      <button id="btn-like" class="rc-caps action-btn">
+        <svg id="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        Salva
+      </button>
+
+      <a id="btn-spotify" class="rc-caps action-btn spotify-btn" href="#" target="_blank">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15.001 10.62 18.66 12.84c.361.181.54.78.301 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.781-.18-.6.18-1.2.78-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.239.54-.959.72-1.56.42z"/></svg>
+        Spotify
+      </a>
+    </div>
+  </div>
+
+  <!-- End Screen -->
+  <div id="end-overlay" class="hidden">
+    <div class="intro-bg-mesh">
+      <div class="mesh-blob mesh-blob-1"></div>
+      <div class="mesh-blob mesh-blob-2"></div>
+      <div class="mesh-blob mesh-blob-3"></div>
+    </div>
+    <div class="end-content">
+      <h2 class="rc-display">Grazie per aver ascoltato.</h2>
+      <p class="end-recap" id="end-recap"></p>
+      <p class="end-next">Il prossimo Wrapped esce il 1 Luglio.</p>
+    </div>
+  </div>
+
+  <!-- GLSL SHADERS -->
+  <script id="vertexshader" type="x-shader/x-vertex">
+    // Simplex 3D Noise 
+    vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
+    vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
+    float snoise(vec3 v){ 
+      const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+      const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+      vec3 i  = floor(v + dot(v, C.yyy) );
+      vec3 x0 = v - i + dot(i, C.xxx) ;
+      vec3 g = step(x0.yzx, x0.xyz);
+      vec3 l = 1.0 - g;
+      vec3 i1 = min( g.xyz, l.zxy );
+      vec3 i2 = max( g.xyz, l.zxy );
+      vec3 x1 = x0 - i1 + 1.0 * C.xxx;
+      vec3 x2 = x0 - i2 + 2.0 * C.xxx;
+      vec3 x3 = x0 - 1.0 + 3.0 * C.xxx;
+      i = mod(i, 289.0 ); 
+      vec4 p = permute( permute( permute( 
+                i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+              + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
+              + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+      float n_ = 1.0/7.0; // N=7
+      vec3  ns = n_ * D.wyz - D.xzx;
+      vec4 j = p - 49.0 * floor(p * ns.z *ns.z);  //  mod(p,N*N)
+      vec4 x_ = floor(j * ns.z);
+      vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+      vec4 x = x_ *ns.x + ns.yyyy;
+      vec4 y = y_ *ns.x + ns.yyyy;
+      vec4 h = 1.0 - abs(x) - abs(y);
+      vec4 b0 = vec4( x.xy, y.xy );
+      vec4 b1 = vec4( x.zw, y.zw );
+      vec4 s0 = floor(b0)*2.0 + 1.0;
+      vec4 s1 = floor(b1)*2.0 + 1.0;
+      vec4 sh = -step(h, vec4(0.0));
+      vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+      vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+      vec3 p0 = vec3(a0.xy,h.x);
+      vec3 p1 = vec3(a0.zw,h.y);
+      vec3 p2 = vec3(a1.xy,h.z);
+      vec3 p3 = vec3(a1.zw,h.w);
+      vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+      p0 *= norm.x;
+      p1 *= norm.y;
+      p2 *= norm.z;
+      p3 *= norm.w;
+      vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+      m = m * m;
+      return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
+    }
+
+    uniform float u_time;
+    uniform float u_frequency;
+    varying float vDisplacement;
+
+    void main() {
+      // Due layer di noise a frequenze SEPARATE per evitare l'effetto epilettico:
+      // 1) Idle: lento, ampio, organico
+      float idleNoise = snoise(position * 0.5 + u_time * 0.12);
+      float idle = idleNoise * 0.35;
+
+      // 2) Audio: più veloce ma ADDITIVO — reagisce ai beat senza dominare
+      float audioNoise = snoise(position * 1.2 + u_time * 0.35);
+      float audio = audioNoise * (u_frequency * 0.6);
+
+      float displacement = idle + audio;
+      vDisplacement = displacement;
+
+      vec3 newPosition = position + normal * displacement;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+    }
+  </script>
+
+  <script id="fragmentshader" type="x-shader/x-fragment">
+    uniform vec3 u_color;
+    uniform vec3 u_color2;
+    varying float vDisplacement;
+
+    void main() {
+      // Color mix based on displacement/noise
+      float intensity = clamp(vDisplacement + 0.5, 0.0, 1.0);
+      vec3 col = mix(u_color, u_color2, intensity);
+      // Higher opacity so wireframe is actually visible on black
+      gl_FragColor = vec4(col, 0.85);
+    }
+  </script>
+
+  <script src="player.js?v=5"></script>
+</body>
+</html>
