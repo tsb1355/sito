@@ -1792,7 +1792,8 @@ function openMemberModal(member) {
   bio.textContent = member.bio || '';
   bio.style.display = member.bio ? '' : 'none';
 
-  const programs = member.programs || [];
+  // Solo i programmi che esistono ancora (in palinsesto o tra i podcast)
+  const programs = (member.programs || []).filter(slug => findProgramBySlug(slug) || PODCASTS.some(p => p.slug === slug));
   const showsWrap = $('member-modal-shows');
   showsWrap.style.display = programs.length ? '' : 'none';
   const list = showsWrap.querySelector('.program-modal__hosts-list');
